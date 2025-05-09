@@ -8,9 +8,9 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-$routes = require __DIR__ . '\..\src\routes.php';
+$routes = require __DIR__ . '/../src/routes.php';
 
-$loader = new FilesystemLoader(__DIR__ . '\..\templates');
+$loader = new FilesystemLoader(__DIR__ . '/../templates');
 $twig = new Environment($loader);
 
 $context = new RequestContext();
