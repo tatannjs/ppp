@@ -1,39 +1,30 @@
 {# {% block skill1 %} #}
-	<div class="skill">
-		<table class="scoring">
-			<thead>
-				<td>Compétences</td>
-				<td>Non Acquis</td>
-				<td>En cours d'acquisition</td>
-				<td>Acquis</td>
-			</thead>
-			<tbody>
-				<tr class="AC">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="AC">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="AC">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="AC">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-			</tbody>
-		</table>
-	</div>
-{# {% endblock %} #}
-{# tr.AC*3>td*4 #}
+<div class="skill">
+    <table class="scoring">
+        <thead>
+            <!-- Titre de la compétence -->
+            <tr>
+                <td colspan="3" class="skill-title">Compétence 1</td>
+            </tr>
+            <!-- Titre des colonnes -->
+            <tr>
+                <td>Non Acquis</td>
+                <td>En cours d'acquisition</td>
+                <td>Acquis</td>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Séparateur de l'élément de l'apprentissage critique -->
+            <tr>
+                <td colspan="3" class="ac-title">AC1 : Élaborer et implémenter les spécifications fonctionnelles et non fonctionnelles à partir des exigences</td>
+            </tr>
+            <!-- Contenu des trois colonnes -->
+            <tr class="ac">
+                <td>Ne pas savoir ce qu’est un cahier des charges</td>
+                <td>Respect partiel des besoins clients</td>
+                <td>Implémentation respectant le cahier des charges</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{# {% endblock %} #}{# tr.AC*3>td*4 #}
