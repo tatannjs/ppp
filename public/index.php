@@ -17,7 +17,10 @@ $routes = require __DIR__ . '/../src/Router/routes.php';
 
 // Configuration de Twig avec le dossier des templates
 $loader = new FilesystemLoader(__DIR__ . '/../templates');
-$twig = new Environment($loader);
+$twig = new Environment($loader, [
+    'cache' => __DIR__ . '/../var/cache/twig',
+    'auto_reload' => true,
+]);
 
 // Configuration du générateur d'URL pour permettre l'utilisation de path() dans Twig
 $urlGenerator = new UrlGenerator($routes, new RequestContext());
