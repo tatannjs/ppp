@@ -1,8 +1,23 @@
 <header class="bg-dark text-white p-3">
-    <div class="container">
-        <h1 class="h3">Mon Portfolio</h1>
-        <nav>
-            <a href="/" class="text-white me-3">Accueil</a>
-        </nav>
-    </div>
+	<div class="container">
+		<div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+			<h1 class="h3 mb-3 mb-md-0">Mon Portfolio</h1>
+			<nav>
+				<ul class="nav">
+					<li class="nav-item">
+						<a href="{{ path('home') }}" class="nav-link text-white">Accueil</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ path('studies', {'year': 1}) }}" class="nav-link text-white">BUT 1</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ path('studies', {'year': 2}) }}" class="nav-link text-white">BUT 2</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ path('studies', {'year': 3}) }}" class="nav-link text-white">BUT 3</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
 </header>

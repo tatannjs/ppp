@@ -1,22 +1,22 @@
 {# {% block skill1 %} #}
-<div class="skill">
-    <table class="scoring">
-        <thead>
+<div class="skill container my-4">
+    <table class="table table-bordered text-center align-middle scoring">
+        <thead class="table-light">
             <!-- Titre de la compétence -->
             <tr>
-                <td colspan="3" class="skill-title">Compétence 1</td>
+                <td colspan="3" class="skill-title fw-bold fs-5">Compétence 1</td>
             </tr>
             <!-- Titre des colonnes -->
             <tr>
-                <td>Non Acquis</td>
-                <td>En cours d'acquisition</td>
-                <td>Acquis</td>
+                <th scope="col">Non Acquis</th>
+                <th scope="col">En cours d'acquisition</th>
+                <th scope="col">Acquis</th>
             </tr>
         </thead>
         <tbody>
             <!-- Séparateur de l'élément de l'apprentissage critique -->
-            <tr>
-                <td colspan="3" class="ac-title">AC1 : Élaborer et implémenter les spécifications fonctionnelles et non fonctionnelles à partir des exigences</td>
+            <tr class="table-secondary">
+                <td colspan="3" class="ac-title fw-semibold">AC1 : Élaborer et implémenter les spécifications fonctionnelles et non fonctionnelles à partir des exigences</td>
             </tr>
             <!-- Contenu des trois colonnes -->
             <tr class="ac">
@@ -27,4 +27,4 @@
         </tbody>
     </table>
 </div>
-{# {% endblock %} #}{# tr.AC*3>td*4 #}
+{# {% endblock %} #}
