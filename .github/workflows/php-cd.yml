@@ -1,0 +1,35 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      
+      # ⚠️   On ne copie que le contenu de public/ vers public_html/
+      - name: Rsync public/ -> ~/public_html
+        run: |
+          rsync -avz --delete -e "ssh -p ${{ secrets.SSH_PORT }}" \
+                ./public/ \
+                ${{ secrets.HOST_USER }}@${{ secrets.HOST }}:public_html/
+
+      #  Commandes côté serveur : composer, cache clear, etc.
+      - name: Remote post-deploy commands
+        run: |
+          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.HOST_USER }}@${{ secrets.HOST }} <<'EOF'
+            cd ~/public_html
+            # tes commandes post déploiement
+          EOF
