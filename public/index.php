@@ -1,7 +1,18 @@
 <?php
 
-// Autoload de Composer pour charger les dépendances (Twig, Symfony Components, etc.)
-require_once __DIR__ . '/../vendor/autoload.php';
+// On récupère le chemin absolu du dossier courant
+$currentDir = __DIR__;
+
+// Détection prod/dev selon la présence de public_html
+if (is_dir(dirname($currentDir) . '/public_html')) {
+    // On est en dev, projet à ../
+    $projectDir = dirname($currentDir).'/..';
+} else {
+    // En prod, projet à ../ppp
+    $projectDir = dirname($currentDir);
+}
+
+require_once $projectDir . '/vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,12 +24,12 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 // Importation des routes définies dans src/Router/routes.php
-$routes = require __DIR__ . '/../src/Router/routes.php';
+$routes = require $projectDir . '/src/Router/routes.php';
 
 // Configuration de Twig avec le dossier des templates
-$loader = new FilesystemLoader(__DIR__ . '/../templates');
+$loader = new FilesystemLoader($projectDir . '/templates');
 $twig = new Environment($loader, [
-    'cache' => __DIR__ . '/../var/cache/twig',
+    'cache' => $projectDir . '/var/cache/twig',
     'auto_reload' => true,
 ]);
 
