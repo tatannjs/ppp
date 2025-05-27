@@ -10,10 +10,12 @@
 		<link rel="stylesheet" href="/assets/css/styles.css">
 	</head>
 	<body>
-    {% include 'partials/_header.html.twig' %}
-		<main>
+		<div id="background"></div>
+		{% include 'partials/_header.html.twig' %}
+		<main id="content">
 			{% block content %}{% endblock %}
 		</main>
-	{% include 'partials/_footer.html.twig' %}
+		{% include 'partials/_footer.html.twig' %}
+		<script src="/assets/js/htmx.min.js"></script>
 	</body>
 </html>

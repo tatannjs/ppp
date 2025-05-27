@@ -13,8 +13,7 @@ body {
 }
 
 /* Couche dégradée masquée */
-body::before {
-  content: '';
+#background {
   position: fixed;
   inset: 0;
   background: conic-gradient(
@@ -31,7 +30,7 @@ body::before {
     url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
   mask-composite: intersect;
   -webkit-mask-composite: destination-in;
-  animation: flicker 20s infinite linear;
+  animation: flicker 60s infinite linear;
   z-index: -1; /* reste derrière le contenu */
   pointer-events: none;
 }

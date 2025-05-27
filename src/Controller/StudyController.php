@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Twig\Environment;
 
 class StudyController extends AbstractController
 {
@@ -24,7 +23,7 @@ class StudyController extends AbstractController
      */
     private function getSkills(int $year): array
     {
-        $templateDir = $this->projectDir . '/templates/partials/studies/year' . $year;
+        $templateDir = $this->projectDir . '/templates/partials/page/studies/year' . $year;
 
         $finder = new Finder();
         $skillNumbers = [];
@@ -50,22 +49,20 @@ class StudyController extends AbstractController
         $skills = $this->getSkills($year);
         $skill = $request->query->getInt('skill', $skills[0] ?? 1);
 
-        return $this->render('studies.html.twig', [
-            'year' => $year,
-            'skill' => $skill,
-            'skills' => $skills,
-        ]);
-    }
+        $isHtmx = $request->headers->get('Hx-Request');
 
-    #[Route('/studies/{year}/{skill}', name: 'app_skill_show')]
-    public function showSkill(int $year, int $skill): Response
-    {
-        $skills = $this->getSkills($year);
-
-        return $this->render('studies.html.twig', [
-            'year' => $year,
-            'skill' => $skill,
-            'skills' => $skills,
-        ]);
+        if ($isHtmx) {
+            return $this->render('partials/page/studies.html.twig', [
+                'year' => $year,
+                'skill' => $skill,
+                'skills' => $skills,
+            ]);
+        } else {
+            return $this->render('page/studies.html.twig', [
+                'year' => $year,
+                'skill' => $skill,
+                'skills' => $skills,
+            ]);
+        }
     }
 }
