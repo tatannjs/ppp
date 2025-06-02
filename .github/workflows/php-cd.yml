@@ -65,7 +65,7 @@ jobs:
             cd $SSH_PATH
 
             # Installer les dépendances
-            composer install --no-dev --optimize-autoloader
+            composer2 install --no-dev --optimize-autoloader
 
             # Création du fichier .env minimal
             rm -f .env.local
