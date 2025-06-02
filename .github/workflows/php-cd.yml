@@ -18,18 +18,49 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      
-      # ⚠️   On ne copie que le contenu de public/ vers public_html/
-      - name: Rsync public/ -> ~/public_html
+      # Copie uniquement le dossier public/ vers le dossier public_html
+      - name: Rsync public/ -> public_html
         run: |
           rsync -avz --delete -e "ssh -p ${{ secrets.SSH_PORT }}" \
                 ./public/ \
-                ${{ secrets.HOST_USER }}@${{ secrets.HOST }}:public_html/
+                ${{ secrets.HOST_USER }}@${{ secrets.HOST }}:{{ secrets.PATH }}/public_html/
 
-      #  Commandes côté serveur : composer, cache clear, etc.
+      # Copie le reste du projet (hors vendor/, public/, .github/)
+      - name: Rsync other files -> app_code
+        run: |
+          rsync -avz --delete -e "ssh -p ${{ secrets.SSH_PORT }}" \
+                --exclude='public/' \
+                --exclude='.github/' \
+                --exclude='vendor/' \
+                ./ \
+                ${{ secrets.HOST_USER }}@${{ secrets.HOST }}:{{ secrets.PATH }}
+
       - name: Remote post-deploy commands
         run: |
-          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.HOST_USER }}@${{ secrets.HOST }} <<'EOF'
-            cd ~/public_html
-            # tes commandes post déploiement
+          SSH_PATH="${{ secrets.PATH }}"
+          APP_SECRET="${{ secrets.APP_SECRET }}"
+          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.HOST_USER }}@${{ secrets.HOST }} << 'EOF'
+            cd $SSH_PATH
+
+            # Installer les dépendances
+            composer install --no-dev --optimize-autoloader
+
+            # Création du fichier .env minimal
+            echo "APP_ENV=prod" > .env.local
+            echo "APP_DEBUG=0" >> .env.local
+            echo "APP_SECRET=$APP_SECRET" >> .env.local
+
+            # Copier les assets Symfony dans public_html/ (plus tard, un jour viendra)
+            # php bin/console assets:install $SSH_PATH/public_html
+
+            # Clear + warm up du cache
+            php bin/console cache:clear --env=prod
+            php bin/console cache:warmup --env=prod
+
+            # Droits (optionnel selon config serveur)
+            chmod -R 755 var
+            chmod -R 755 vendor
+
+            # (facultatif) Doctrine migrations
+            # php bin/console doctrine:migrations:migrate --no-interaction
           EOF
