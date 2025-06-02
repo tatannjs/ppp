@@ -1,12 +1,17 @@
 name: Deploy to Server
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["PHP CI"]
+    types:
+      - completed
 
 jobs:
   deploy:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
+      
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +22,10 @@ jobs:
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known_hosts
+        run: |
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
       # Copie uniquement le dossier public/ vers le dossier public_html
       - name: Rsync public/ -> public_html
