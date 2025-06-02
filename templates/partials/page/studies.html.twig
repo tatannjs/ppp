@@ -1,0 +1,16 @@
+<nav>
+	<ul class="nav nav-underline justify-content-center">
+		{% for i in skills %}
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('app_studies', {'year': year, 'skill': i}) }}">Skill
+					{{ i }}</a>
+			</li>
+		{% endfor %}
+	</ul>
+</nav>
+
+{% if skill != null %}
+	{% include 'partials/page/studies/year' ~ year ~'/skill' ~ skill ~'.html.twig'%}
+{% else %}
+	{% include 'partials/page/studies/year' ~ year ~'/skill1.html.twig'%}
+{% endif %}
