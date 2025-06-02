@@ -21,31 +21,47 @@ jobs:
       # Copie uniquement le dossier public/ vers le dossier public_html
       - name: Rsync public/ -> public_html
         run: |
-          rsync -avz --delete -e "ssh -p ${{ secrets.SSH_PORT }}" \
-                ./public/ \
-                ${{ secrets.HOST_USER }}@${{ secrets.HOST }}:{{ secrets.PATH }}/public_html/
+          SSH_PORT="${{ secrets.SSH_PORT }}"
+          HOST="${{ secrets.HOST }}"
+          HOST_USER="${{ secrets.HOST_USER }}"
+          DEPLOY_PATH="${{ secrets.PATH }}"
+
+          rsync -avz --delete -e "ssh -p $SSH_PORT" \
+          ./public/ \
+          "$HOST_USER@$HOST:$DEPLOY_PATH/public_html/"
 
       # Copie le reste du projet (hors vendor/, public/, .github/)
       - name: Rsync other files -> app_code
         run: |
-          rsync -avz --delete -e "ssh -p ${{ secrets.SSH_PORT }}" \
-                --exclude='public/' \
-                --exclude='.github/' \
-                --exclude='vendor/' \
-                ./ \
-                ${{ secrets.HOST_USER }}@${{ secrets.HOST }}:{{ secrets.PATH }}
+          SSH_PORT="${{ secrets.SSH_PORT }}"
+          HOST="${{ secrets.HOST }}"
+          HOST_USER="${{ secrets.HOST_USER }}"
+          DEPLOY_PATH="${{ secrets.PATH }}"
+
+          rsync -avz --delete -e "ssh -p $SSH_PORT" \
+            --exclude='public/' \
+            --exclude='.github/' \
+            --exclude='vendor/' \
+            ./ \
+            "$HOST_USER@$HOST:$DEPLOY_PATH"
 
       - name: Remote post-deploy commands
         run: |
           SSH_PATH="${{ secrets.PATH }}"
           APP_SECRET="${{ secrets.APP_SECRET }}"
-          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.HOST_USER }}@${{ secrets.HOST }} << 'EOF'
+          SSH_PORT="${{ secrets.SSH_PORT }}"
+          HOST="${{ secrets.HOST }}"
+          HOST_USER="${{ secrets.HOST_USER }}"
+          ssh -p $SSH_PORT $HOST_USER@$HOST << 'EOF'
             cd $SSH_PATH
 
             # Installer les dépendances
             composer install --no-dev --optimize-autoloader
 
             # Création du fichier .env minimal
+            rm -f .env.local
+            touch .env.local
+            # Remplir le fichier .env.local avec les variables d'environnement
             echo "APP_ENV=prod" > .env.local
             echo "APP_DEBUG=0" >> .env.local
             echo "APP_SECRET=$APP_SECRET" >> .env.local
