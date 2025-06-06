@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class StudyController extends AbstractController
 {
@@ -36,7 +37,6 @@ class StudyController extends AbstractController
                     $skillNumbers[] = (int)$matches[1];
                 }
             }
-
             sort($skillNumbers);
         }
 
@@ -46,23 +46,41 @@ class StudyController extends AbstractController
     #[Route('/studies/{year}', name: 'app_studies')]
     public function showYear(Request $request, int $year): Response
     {
-        $skills = $this->getSkills($year);
-        $skill = $request->query->getInt('skill', $skills[0] ?? 1);
-
         $isHtmx = $request->headers->get('Hx-Request');
-
-        if ($isHtmx) {
-            return $this->render('partials/page/studies.html.twig', [
-                'year' => $year,
-                'skill' => $skill,
-                'skills' => $skills,
-            ]);
+        if ($year <= 3 && $year > 0) {
+            $skills = $this->getSkills($year);
+            if ($isHtmx) {
+                return $this->render('partials/page/studies.html.twig', [
+                    'year' => $year,
+                    'skills' => $skills,
+                    'wip' => $year === 3,
+                ]);
+            } else {
+                return $this->render('page/studies.html.twig', [
+                    'year' => $year,
+                    'skills' => $skills,
+                    'wip' => $year === 3,
+                ]);
+            }
         } else {
-            return $this->render('page/studies.html.twig', [
-                'year' => $year,
-                'skill' => $skill,
-                'skills' => $skills,
-            ]);
+            throw $this->createNotFoundException('Année invalide');
+        }
+    }
+
+    #[Route('/skill/{skill}/{year}', name: 'app_skill', methods: ['GET'])]
+    public function showSkill(Request $request, int $skill, int $year): Response
+    {
+        // Vérifie si la requête provient bien de HTMX
+        if (!$request->headers->get('Hx-Request')) {
+            throw new AccessDeniedException('Accès non autorisé');
+        }
+
+        $skills = $this->getSkills($year);
+
+        if (in_array($skill, $skills)) {
+            return $this->render('partials/page/studies/year' . $year . '/skill' . $skill . '.html.twig', []);
+        } else {
+            throw $this->createNotFoundException('Compétence invalide');
         }
     }
 }

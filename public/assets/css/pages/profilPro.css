@@ -1,0 +1,83 @@
+.circle-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  margin-right: 1rem;
+}
+.circle-blue {
+  background: #3b82f6;
+}
+.circle-green {
+  background: #22c55e;
+}
+.circle-yellow {
+  background: #facc15;
+  color: #222;
+}
+.circle-red {
+  background: #ef4444;
+}
+.arrow {
+  font-size: 2rem;
+  color: #6366f1;
+  margin: 0 1rem;
+}
+.section-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  color: black;
+}
+.infographic-card {
+  color: black;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 24px rgba(59, 130, 246, 0.07);
+  background: #fff;
+  padding: 2rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.timeline {
+  border-left: 4px solid #3b82f6;
+  margin-left: 1.5rem;
+  padding-left: 1.5rem;
+}
+.timeline .timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.timeline .timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -2.1rem;
+  top: 0.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: #3b82f6;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+.objective-arrow {
+  font-size: 2.5rem;
+  color: #22c55e;
+  margin: 0 1rem;
+  vertical-align: middle;
+}
+.sources-list li {
+  margin-bottom: 0.5rem;
+}
+@media (max-width: 767px) {
+  .arrow,
+  .objective-arrow {
+    display: none;
+  }
+  .circle-icon {
+    margin-bottom: 1rem;
+  }
+}

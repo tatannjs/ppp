@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 405 - Méthode non autorisée{% endblock %}
+
+{% block content %}
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-danger">405 - Méthode non autorisée</h1>
+        <p class="lead">La méthode HTTP utilisée n'est pas autorisée pour cette ressource.</p>
+        <a href="{{ path('app_home') }}" class="btn btn-primary mt-3">Retour à l'accueil</a>
+    </div>
+{% endblock %}

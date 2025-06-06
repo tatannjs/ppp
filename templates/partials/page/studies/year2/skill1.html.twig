@@ -1,12 +1,9 @@
-{# {% block skill1 %} #}
-<div class="skill container my-4">
+<div class="skill container">
     <table class="table table-bordered text-center align-middle scoring">
         <thead class="table-light">
-            <!-- Titre de la compétence -->
             <tr>
-                <td colspan="3" class="skill-title fw-bold fs-5">Compétence 1</td>
+                <td colspan="3" class="skill-title fw-bold fs-5">🧩 Compétence 1 : Réaliser un développement d'application</td>
             </tr>
-            <!-- Titre des colonnes -->
             <tr>
                 <th scope="col">Non Acquis</th>
                 <th scope="col">En cours d'acquisition</th>
@@ -14,17 +11,73 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Séparateur de l'élément de l'apprentissage critique -->
             <tr class="table-secondary">
                 <td colspan="3" class="ac-title fw-semibold">AC1 : Élaborer et implémenter les spécifications fonctionnelles et non fonctionnelles à partir des exigences</td>
             </tr>
-            <!-- Contenu des trois colonnes -->
-            <tr class="ac">
-                <td>Ne pas savoir ce qu’est un cahier des charges</td>
-                <td>Respect partiel des besoins clients</td>
-                <td>Implémentation respectant le cahier des charges</td>
+            <tr>
+                <td>Ignorer ou négliger le cahier des charges et les besoins exprimés</td>
+                <td>Analyser partiellement le cahier des charges, en oubliant ou mal interprétant certaines exigences</td>
+                <td class="table-success">Analyser précisément le cahier des charges et prendre en compte toutes les exigences</td>
+            </tr>
+            <tr>
+                <td>Implémenter une solution non conforme ou incomplète par rapport aux besoins</td>
+                <td>Implémenter une solution partiellement conforme, avec quelques oublis ou erreurs</td>
+                <td class="table-success">Implémenter fidèlement et complètement les besoins fonctionnels et non fonctionnels</td>
+            </tr>
+            <tr class="table-secondary">
+                <td colspan="3" class="ac-title fw-semibold">AC2 : Appliquer des principes d’accessibilité et d’ergonomie</td>
+            </tr>
+            <tr>
+                <td>Omettre toute prise en compte de l’accessibilité ou de l’ergonomie</td>
+                <td class="table-warning">Appliquer quelques principes d’accessibilité ou d’ergonomie, mais de façon incomplète</td>
+                <td>Appliquer systématiquement les principes d’accessibilité et d’ergonomie pour tous les utilisateurs</td>
+            </tr>
+            <tr>
+                <td>Oublier de réaliser une maquette ou de réfléchir à l’expérience utilisateur</td>
+                <td>Réaliser une maquette sommaire ou non validée, avec une expérience utilisateur peu optimisée</td>
+                <td class="table-success">Réaliser une maquette détaillée et la valider avant le développement, en optimisant l’expérience utilisateur</td>
+            </tr>
+            <tr>
+                <td>Proposer une interface non adaptée aux différents supports ou handicaps</td>
+                <td class="table-warning">Adapter partiellement l’interface (responsive ou accessibilité partielle)</td>
+                <td>Adapter totalement l’interface à tous les supports et handicaps courants</td>
+            </tr>
+            <tr>
+                <td>Oublier d’anticiper les besoins spécifiques des utilisateurs via des personas</td>
+                <td>Créer des personas peu pertinents ou incomplets</td>
+                <td class="table-success">Utiliser des personas pertinents pour anticiper les différents problèmes utilisateurs</td>
+            </tr>
+            <tr class="table-secondary">
+                <td colspan="3" class="ac-title fw-semibold">AC3 : Adopter de bonnes pratiques de conception et de programmation</td>
+            </tr>
+            <tr>
+                <td>Écrire un code désorganisé, non commenté et non conforme aux conventions</td>
+                <td>Structurer partiellement le code et respecter certaines conventions, avec une documentation incomplète</td>
+                <td class="table-success">Structurer clairement le code, le commenter et respecter toutes les conventions et normes</td>
+            </tr>
+            <tr>
+                <td>Omettre la modélisation ou produire une modélisation incomplète (UML, diagrammes...)</td>
+                <td>Réaliser une modélisation partielle ou imprécise</td>
+                <td class="table-success">Réaliser une modélisation complète et pertinente (UML, diagrammes de classes, séquences, etc.)</td>
+            </tr>
+            <tr>
+                <td>Ignorer ou mal utiliser les concepts de POO et les bonnes pratiques</td>
+                <td>Utiliser partiellement ou maladroitement les bonnes pratiques (POO, DRY, SOLID...)</td>
+                <td class="table-success">Appliquer systématiquement et pertinemment les bonnes pratiques de conception et de programmation</td>
+            </tr>
+            <tr class="table-secondary">
+                <td colspan="3" class="ac-title fw-semibold">AC4 : Vérifier et valider la qualité de l’application par les tests</td>
+            </tr>
+            <tr>
+                <td>N’effectuer aucun test, ni manuel ni automatisé</td>
+                <td class="table-warning">Effectuer quelques tests manuels ou automatisés, avec une couverture insuffisante</td>
+                <td>Effectuer des tests unitaires et fonctionnels pertinents couvrant toutes les fonctionnalités</td>
+            </tr>
+            <tr>
+                <td>Oublier de réaliser des tests de non-régression, laissant passer des bugs</td>
+                <td class="table-warning">Réaliser des tests de non-régression ponctuels ou incomplets</td>
+                <td>Réaliser systématiquement des tests de non-régression pour garantir la stabilité de l’application</td>
             </tr>
         </tbody>
     </table>
 </div>
-{# {% endblock %} #}
