@@ -1,16 +1,22 @@
-<nav>
-	<ul class="nav nav-underline justify-content-center">
-		{% for i in skills %}
-			<li class="nav-item">
-				<a class="nav-link" href="{{ path('app_studies', {'year': year, 'skill': i}) }}">Skill
-					{{ i }}</a>
-			</li>
-		{% endfor %}
-	</ul>
-</nav>
-
-{% if skill != null %}
-	{% include 'partials/page/studies/year' ~ year ~'/skill' ~ skill ~'.html.twig'%}
+{% if wip == false%}
+	<nav>
+		<ul class="nav nav-underline justify-content-center">
+			{% for i in skills %}
+				<li class="nav-item">
+					<a class="nav-link text-white" href="" hx-get="{{ path('app_skill', {'year': year, 'skill': i}) }}" hx-target="#studies-content">
+						Compétence {{ i }}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</nav>
+	{% if year == 1 %}
+		<div class="d-flex justify-content-center align-items-start">
+			Attention : Le contenu de la première année est en cours de repport.</div>
+	{% endif %}
+	<div id="studies-content">
+		{% include 'partials/page/studies/year' ~ year ~'/skill1.html.twig'%}
+	</div>
 {% else %}
-	{% include 'partials/page/studies/year' ~ year ~'/skill1.html.twig'%}
+	{% include 'partials/page/studies/WIP.html.twig'%}
 {% endif %}

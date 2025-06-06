@@ -1,7 +1,12 @@
-:root {
-  --size: 20px;
-}
+@import 'variables.css';
+@import 'components/button.css';
+@import 'components/card.css';
+@import 'components/table.css';
+@import 'pages/home.css';
+@import 'pages/studies.css';
+@import 'pages/profilPro.css';
 
+/* ...autres styles globaux... */
 body {
   margin: 0;
   color: white;
@@ -11,32 +16,41 @@ body {
   overflow-y: scroll;
 }
 
-/* Couche dégradée masquée */
 #background {
   position: fixed;
   inset: 0;
-  background: conic-gradient(
+  background:conic-gradient(
     from 180deg at 50% 70%,
-    hsla(0, 0%, 98%, 1) 0deg,
-    #eec32d 72deg,
-    #ec4b4b 144deg,
-    #709ab9 216deg,
-    #4dffbf 288deg,
+    #fafafa 0deg,
+    #fffb00 72deg,
+    #ff0000 144deg,
+    #0099ff 216deg,
+    #00ffa2 288deg,
     hsla(0, 0%, 98%, 1) 360deg
   );
-  mask:
-    radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size, 40px) var(--size, 40px),
-    url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+
+  /* Masques séparés avec animation uniquement sur le bruit */
+  mask-image: radial-gradient(circle at 50% 50%, white 2px, transparent 4px),
+              url("https://assets.codepen.io/605876/noise-mask.png");
+  mask-size: 40px 40px, 256px 256px;
+  mask-position: 50% 50%, 0 0;
+  mask-repeat: repeat, repeat;
   mask-composite: intersect;
   -webkit-mask-composite: destination-in;
-  animation: flicker 60s infinite linear;
-  z-index: -1; /* reste derrière le contenu */
+
+  animation: noiseScroll 20s linear infinite;
+  will-change: mask-position;
+
+  z-index: -1;
   pointer-events: none;
 }
 
-@keyframes flicker {
-  to {
-    mask-position: 50% 50%, 0 50%;
+@keyframes noiseScroll {
+  0% {
+    mask-position: 50% 50%, 0 0;
+  }
+  100% {
+    mask-position: 50% 50%, 256px 256px;
   }
 }
 
@@ -55,6 +69,7 @@ footer {
 header {
   top: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 footer {

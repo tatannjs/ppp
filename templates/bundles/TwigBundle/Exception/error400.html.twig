@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 400 - Requête incorrecte{% endblock %}
+
+{% block content %}
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-danger">400 - Requête incorrecte</h1>
+        <p class="lead">La requête envoyée au serveur est mal formulée.</p>
+        <a href="{{ path('app_home') }}" class="btn btn-primary mt-3">Retour à l'accueil</a>
+    </div>
+{% endblock %}
